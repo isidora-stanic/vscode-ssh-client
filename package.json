@@ -1,0 +1,381 @@
+{
+  "name": "sftp-client",
+  "displayName": "SFTP Client",
+  "description": "SFTP remote file explorer with multi-connection support, native editing, and full CRUD operations",
+  "version": "0.1.0",
+  "publisher": "sftp-client",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:sftpConnections",
+    "onFileSystem:sftp"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sftpExplorer",
+          "title": "SFTP Client",
+          "icon": "media/sftp.svg"
+        }
+      ]
+    },
+    "views": {
+      "sftpExplorer": [
+        {
+          "id": "sftpConnections",
+          "name": "Remote Explorer",
+          "icon": "media/sftp.svg"
+        }
+      ]
+    },
+    "resourceLabelFormatters": [
+      {
+        "scheme": "sftp",
+        "authority": "*",
+        "formatting": {
+          "label": "${path}",
+          "separator": "/",
+          "tildify": false,
+          "workspaceSuffix": "SFTP"
+        }
+      }
+    ],
+    "commands": [
+      {
+        "command": "sftpClient.addConnection",
+        "title": "Add Connection",
+        "icon": "$(add)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.editConnection",
+        "title": "Edit Connection",
+        "icon": "$(edit)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.removeConnection",
+        "title": "Remove Connection",
+        "icon": "$(trash)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.connect",
+        "title": "Connect",
+        "icon": "$(plug)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.disconnect",
+        "title": "Disconnect",
+        "icon": "$(debug-disconnect)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.newFile",
+        "title": "New File",
+        "icon": "$(new-file)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.newFolder",
+        "title": "New Folder",
+        "icon": "$(new-folder)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.rename",
+        "title": "Rename",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.delete",
+        "title": "Delete",
+        "icon": "$(trash)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.download",
+        "title": "Download",
+        "icon": "$(cloud-download)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.upload",
+        "title": "Upload File",
+        "icon": "$(cloud-upload)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.copyPath",
+        "title": "Copy Remote Path",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.openSshTerminal",
+        "title": "Open SSH Terminal",
+        "icon": "$(terminal)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.setConnectionColor",
+        "title": "Set Tab Color",
+        "icon": "$(symbol-color)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.importFromJson",
+        "title": "Import Connection from JSON",
+        "icon": "$(file-code)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.reloadFromServer",
+        "title": "Reload from Server",
+        "icon": "$(sync)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.uploadToServer",
+        "title": "Upload to Server",
+        "icon": {
+          "light": "media/upload-light.svg",
+          "dark": "media/upload.svg"
+        },
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.discardChanges",
+        "title": "Discard Changes",
+        "icon": "$(discard)",
+        "category": "SFTP"
+      },
+      {
+        "command": "sftpClient.diffWithRemote",
+        "title": "Diff with Remote",
+        "icon": {
+          "light": "media/diff-light.svg",
+          "dark": "media/diff.svg"
+        },
+        "category": "SFTP"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "sftpClient.blockSave",
+        "key": "ctrl+s",
+        "when": "resourceScheme == sftp && editorTextFocus"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "sftpClient.addConnection",
+          "when": "view == sftpConnections",
+          "group": "navigation@1"
+        },
+        {
+          "command": "sftpClient.importFromJson",
+          "when": "view == sftpConnections",
+          "group": "navigation@2"
+        },
+        {
+          "command": "sftpClient.refresh",
+          "when": "view == sftpConnections",
+          "group": "navigation@3"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "sftpClient.discardChanges",
+          "when": "resourceScheme == sftp",
+          "group": "navigation@1"
+        },
+        {
+          "command": "sftpClient.reloadFromServer",
+          "when": "resourceScheme == sftp",
+          "group": "navigation@2"
+        },
+        {
+          "command": "sftpClient.uploadToServer",
+          "when": "resourceScheme == sftp",
+          "group": "navigation@3"
+        },
+        {
+          "command": "sftpClient.diffWithRemote",
+          "when": "resourceScheme == sftp",
+          "group": "navigation@4"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "sftpClient.connect",
+          "when": "view == sftpConnections && viewItem =~ /^connection-(disconnected|error)/",
+          "group": "1_connection@1"
+        },
+        {
+          "command": "sftpClient.disconnect",
+          "when": "view == sftpConnections && viewItem == connection-connected",
+          "group": "1_connection@1"
+        },
+        {
+          "command": "sftpClient.openSshTerminal",
+          "when": "view == sftpConnections && viewItem == connection-connected",
+          "group": "1_connection@2"
+        },
+        {
+          "command": "sftpClient.editConnection",
+          "when": "view == sftpConnections && viewItem =~ /^connection/",
+          "group": "1_connection@3"
+        },
+        {
+          "command": "sftpClient.removeConnection",
+          "when": "view == sftpConnections && viewItem =~ /^connection/",
+          "group": "1_connection@4"
+        },
+        {
+          "command": "sftpClient.setConnectionColor",
+          "when": "view == sftpConnections && viewItem =~ /^connection/",
+          "group": "1_connection@5"
+        },
+        {
+          "command": "sftpClient.newFile",
+          "when": "view == sftpConnections && viewItem =~ /^(connection-connected|directory)/",
+          "group": "2_crud@1"
+        },
+        {
+          "command": "sftpClient.newFolder",
+          "when": "view == sftpConnections && viewItem =~ /^(connection-connected|directory)/",
+          "group": "2_crud@2"
+        },
+        {
+          "command": "sftpClient.upload",
+          "when": "view == sftpConnections && viewItem =~ /^(connection-connected|directory)/",
+          "group": "2_crud@3"
+        },
+        {
+          "command": "sftpClient.rename",
+          "when": "view == sftpConnections && viewItem =~ /^(file|directory)/",
+          "group": "2_crud@4"
+        },
+        {
+          "command": "sftpClient.delete",
+          "when": "view == sftpConnections && viewItem =~ /^(file|directory)/",
+          "group": "2_crud@5"
+        },
+        {
+          "command": "sftpClient.download",
+          "when": "view == sftpConnections && viewItem == file",
+          "group": "3_transfer@1"
+        },
+        {
+          "command": "sftpClient.copyPath",
+          "when": "view == sftpConnections && viewItem =~ /^(file|directory)/",
+          "group": "4_info@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "SFTP Client",
+      "properties": {
+        "sftpClient.connections": {
+          "type": "array",
+          "default": [],
+          "markdownDescription": "SFTP connections. Use **Global** scope for connections available in all workspaces, or **Workspace** scope to keep them project-specific. Passwords/passphrases are stored securely in the system keychain, not here.",
+          "items": {
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "host",
+              "username"
+            ],
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "Unique connection ID (auto-generated)"
+              },
+              "name": {
+                "type": "string",
+                "description": "Display name for the connection"
+              },
+              "host": {
+                "type": "string",
+                "description": "Hostname or IP address"
+              },
+              "port": {
+                "type": "number",
+                "default": 22,
+                "description": "SSH port"
+              },
+              "username": {
+                "type": "string",
+                "description": "SSH username"
+              },
+              "privateKeyPath": {
+                "type": "string",
+                "description": "Path to private key file (e.g. ~/.ssh/id_rsa)"
+              },
+              "remotePath": {
+                "type": "string",
+                "default": "/",
+                "description": "Root remote directory to open"
+              },
+              "scope": {
+                "type": "string",
+                "enum": [
+                  "global",
+                  "workspace"
+                ],
+                "default": "global",
+                "description": "Whether this connection is global or workspace-specific"
+              }
+            }
+          }
+        }
+      }
+    },
+    "colors": [
+      { "id": "sftpClient.customColor0", "description": "SFTP custom color slot 0", "defaults": { "dark": "#ffeb3b", "light": "#f9a825", "highContrast": "#ffeb3b", "highContrastLight": "#f9a825" } },
+      { "id": "sftpClient.customColor1", "description": "SFTP custom color slot 1", "defaults": { "dark": "#ffeb3b", "light": "#f9a825", "highContrast": "#ffeb3b", "highContrastLight": "#f9a825" } },
+      { "id": "sftpClient.customColor2", "description": "SFTP custom color slot 2", "defaults": { "dark": "#ffeb3b", "light": "#f9a825", "highContrast": "#ffeb3b", "highContrastLight": "#f9a825" } },
+      { "id": "sftpClient.customColor3", "description": "SFTP custom color slot 3", "defaults": { "dark": "#ffeb3b", "light": "#f9a825", "highContrast": "#ffeb3b", "highContrastLight": "#f9a825" } },
+      { "id": "sftpClient.customColor4", "description": "SFTP custom color slot 4", "defaults": { "dark": "#ffeb3b", "light": "#f9a825", "highContrast": "#ffeb3b", "highContrastLight": "#f9a825" } },
+      { "id": "sftpClient.customColor5", "description": "SFTP custom color slot 5", "defaults": { "dark": "#ffeb3b", "light": "#f9a825", "highContrast": "#ffeb3b", "highContrastLight": "#f9a825" } },
+      { "id": "sftpClient.customColor6", "description": "SFTP custom color slot 6", "defaults": { "dark": "#ffeb3b", "light": "#f9a825", "highContrast": "#ffeb3b", "highContrastLight": "#f9a825" } },
+      { "id": "sftpClient.customColor7", "description": "SFTP custom color slot 7", "defaults": { "dark": "#ffeb3b", "light": "#f9a825", "highContrast": "#ffeb3b", "highContrastLight": "#f9a825" } }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "lint": "eslint src --ext ts"
+  },
+  "devDependencies": {
+    "@types/node": "^20.x",
+    "@types/ssh2-sftp-client": "^9.0.6",
+    "@types/vscode": "^1.85.0",
+    "node-loader": "^2.0.0",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "ssh2-sftp-client": "^10.0.3"
+  }
+}
