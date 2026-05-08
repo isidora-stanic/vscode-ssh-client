@@ -118,3 +118,37 @@ Available colors: Cyan, Green, Yellow, Red, Purple, Orange, Blue, White.
 ## Keyboard Shortcuts
 
 No default keybindings. You can assign shortcuts via `Preferences: Open Keyboard Shortcuts` and searching for `SFTP`.
+
+---
+
+## Building the VSIX Package
+
+### Prerequisites
+
+- [Node.js](https://nodejs.org) (v18 or newer)
+- [vsce](https://github.com/microsoft/vscode-vsce): `npm install -g @vscode/vsce`
+
+### Steps
+
+```bash
+# 1. Clone the repository
+git clone https://github.com/isidora-stanic/vscode-ssh-client.git
+cd sftp-client
+
+# 2. Install dependencies
+npm install
+
+# 3. Build and package
+vsce package --no-dependencies
+```
+
+This produces a `sftp-client-0.1.0.vsix` file in the project root.
+
+### Install the VSIX
+
+In VS Code, Cursor, or any VS Code-compatible editor:
+
+1. Open the Extensions panel (`Ctrl+Shift+X`)
+2. Click the `...` menu (top right)
+3. Select **Install from VSIX...**
+4. Pick the `.vsix` file
